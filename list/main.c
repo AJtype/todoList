@@ -5,6 +5,7 @@ void check_copyConstructor();
 void check_operatorEqual();
 
 // getter setter tests
+void check_print_list();
 void check_clear();
 void check_erase();
 void check_unique();
@@ -15,8 +16,18 @@ void check_sort();
 void check_merge();
 
 int main() {
+    check_print_list();
 
     return 0;
+}
+
+void check_print_list() {
+    taskList list = empty_list();
+
+    push_front(&list, "lesson");
+    push_front(&list, "breakfast");
+
+    print_list(&list);
 }
 
 /*void check_copyConstructor() {
