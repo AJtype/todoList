@@ -35,3 +35,25 @@ void push_front(taskList *this, const char *str) {
         prevHead->prev = this->head;
     this->length;
 }
+
+void push_back(taskList *this, const char *str) {
+    node* temp = (node*)malloc(sizeof(node));
+    if (NULL == temp) {
+        perror("Memory allocation failed in function push_front");
+        exit(EXIT_FAILURE);
+    }
+
+    strcpy(temp->task, str);
+    temp->stringLen = strlen(str);
+    temp->next = NULL;
+
+    if (0 == this->length) {
+        this->head = temp;
+        this->head->prev = NULL;
+        this->end = this->head;
+    } else {
+        temp->prev = this->end;
+        this->end->next = temp;
+        this->end = this->end->next;
+    } this->length++;    
+}

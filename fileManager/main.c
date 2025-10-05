@@ -2,7 +2,7 @@
 
 int main() {
     fileManager fm = {0, 0, 0, 0};
-    taskList list = {0, 0, 0};
+    taskList list = empty_list();
 
     // open file
     fm.fp = fopen("..\\TODOs.txt", "r");
