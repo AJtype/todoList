@@ -13,7 +13,7 @@ typedef struct node {
     char task[10];
     node* next;
     node* prev;
-} node;
+} node; // TODO: add allocated string
 
 typedef struct taskList {
     unsigned int length;

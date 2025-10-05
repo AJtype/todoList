@@ -1,4 +1,5 @@
 #include "fileManager.h"
+#include "../list/list.h"
 
 int main() {
     fileManager fm = {0, 0, 0, 0};
@@ -15,7 +16,10 @@ int main() {
     while (fm.read = getline(&fm.line, &fm.len, fm.fp) != -1) {
         printf("Retrieved line of lend %i: \n", fm.read);
         printf("%s", fm.line);
+        push_back(&list, fm.line);
     }
+
+    print_list(&list);
 
     // close file
     fclose(fm.fp);
