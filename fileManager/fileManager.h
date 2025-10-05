@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef FILEMANAGER_H
+#define FILEMANAGER_H
 
 #include "../list/list.h"
 #include <stdio.h>
@@ -12,6 +12,5 @@ typedef struct fileManager {
     size_t len;
     size_t read;
 } fileManager;
-
 
 #endif
