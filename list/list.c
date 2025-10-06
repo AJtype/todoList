@@ -9,7 +9,7 @@ void print_list(const taskList *list) {
     node* itr = list->head;
     printf("{");
     while (itr != 0) {
-        printf("%s, ", itr->task);
+        printf("%s, ", itr->str.str);
         itr = itr->next;
     } printf("}\n");    
 }
@@ -24,16 +24,15 @@ void push_front(taskList *this, const char *str) {
         exit(EXIT_FAILURE);
     }
 
-    strcpy(this->head->task, str);
+    this->head->str = createString(str);
     this->head->next = prevHead;
     this->head->prev = NULL;
-    this->head->stringLen = strlen(str);
 
     if (0 == this->length)
         this->end = this->head;
     else
         prevHead->prev = this->head;
-    this->length;
+    this->length++;
 }
 
 void push_back(taskList *this, const char *str) {
@@ -43,8 +42,7 @@ void push_back(taskList *this, const char *str) {
         exit(EXIT_FAILURE);
     }
 
-    strcpy(temp->task, str);
-    temp->stringLen = strlen(str);
+    temp->str = createString(str);
     temp->next = NULL;
 
     if (0 == this->length) {

@@ -1,16 +1,15 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include "../string/myString.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 typedef struct node node;
 typedef struct taskList taskList;
 
 typedef struct node {
-    unsigned int stringLen;
-    char task[10];
+    string str;
     node* next;
     node* prev;
 } node; // TODO: add allocated string

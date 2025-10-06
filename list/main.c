@@ -25,9 +25,9 @@ int main() {
 void check_print_list() {
     taskList list = empty_list();
 
-    push_back(&list, "lesson");
+    push_front(&list, "lesson");
     push_back(&list, "breakfast");
-    push_back(&list, "ride");
+    push_front(&list, "ride");
 
     print_list(&list);
 }
