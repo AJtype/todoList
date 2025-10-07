@@ -38,6 +38,12 @@ void check_print_list() {
             free(popped.str);
         }
     }
+
+    string popped = pop_front(&list);
+    if (0 != strcmp(popped.str, "-1")) {
+        printf("deleting the string: \"%s\"\n", popped.str);
+        free(popped.str);
+    }
 }
 
 /*void check_copyConstructor() {

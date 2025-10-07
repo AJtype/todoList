@@ -27,6 +27,7 @@ void erase(taskList* this);
 
 // getters
 void print_list(const taskList* list);
+string pop_back(taskList* this);
 string pop_front(taskList* this);
 
 // setters

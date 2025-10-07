@@ -14,6 +14,28 @@ void print_list(const taskList *list) {
     } printf("}\n");    
 }
 
+string pop_back(taskList* this) {
+    if (this->length == 0) {
+        printf("pop_front() called on empty list\n");
+        return createString("-1");
+    }
+
+    node* popped = this->end;
+    string val = popped->str;
+
+    this->end = popped->prev;
+    if(this->end) {
+        this->end->next = NULL;
+    } else {
+        this->head = NULL;
+    }
+
+    free(popped);
+    this->length--;
+
+    return val;
+}
+
 string pop_front(taskList* this) {
     if (this->length == 0) {
         printf("pop_front() called on empty list\n");
