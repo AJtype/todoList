@@ -43,7 +43,7 @@ string pop_front(taskList* this) {
     }
 
     node* popped = this->head;
-    string val = popped->str; // does this work?
+    string val = popped->str;
 
     this->head = popped->next;
     if (this->head) {
