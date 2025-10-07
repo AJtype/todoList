@@ -14,11 +14,11 @@ int main() {
     
     // move line by line
     while (fm.read = getline(&fm.line, &fm.len, fm.fp) != -1) {
-        printf("Retrieved line of lend %i: \n", fm.read);
-        printf("%s", fm.line);
+        dropEOL(fm.line);
         push_back(&list, fm.line);
     }
 
+    printf("todo list is: ");
     print_list(&list);
 
     // close file

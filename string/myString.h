@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+void dropEOL(char* line);
+
 typedef struct string string;
 
 typedef struct string {

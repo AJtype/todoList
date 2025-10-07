@@ -1,5 +1,10 @@
 #include "myString.h"
 
+void dropEOL(char *line) {
+    if ('\n' == line[strlen(line)-1])
+        line[strlen(line)-1] = '\0';
+}
+
 string empty_string() {
     string str = {10, 0, NULL};
 
