@@ -23,7 +23,6 @@ typedef struct taskList {
 // constructor
 taskList empty_list();
 taskList copyList(const taskList* other);
-void erase(taskList* this);
 
 // getters
 void print_list(const taskList* list);
@@ -35,6 +34,11 @@ void push_front(taskList* this, const char* str);
 void push_back(taskList* this, const char* str);
 
 // funcs
+string erase(taskList* this, size_t pos);
 void clear(taskList* this);
+
+// helper funcs
+node* getNode(taskList* this, size_t pos);
+string pop_by_node(taskList* this, node* popped);
 
 #endif

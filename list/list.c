@@ -100,10 +100,51 @@ void push_back(taskList *this, const char *str) {
     } this->length++;    
 }
 
-void clear(taskList* this) {
+string erase(taskList *this, size_t pos)
+{
+    node* popped = getNode(this, pos);
+    if (!popped)
+        return createString("-1");
+    
+    return pop_by_node(this, popped);
+}
+
+void clear(taskList *this)
+{
     while (0 != this->head) {
         string popped = pop_front(this);
         // if (0 != strcmp(popped.str, "-1")) // to test list pointer validity
         //     free(popped.str);
     }
+}
+
+node *getNode(taskList *this, size_t pos) {
+    if (pos >= this->length) {
+        printf("Out of Bounds in func getNode\n");
+        return NULL;
+    }
+    
+    node* itr = this->head;
+    for (size_t i = 0; i < pos; i++) {
+        itr = itr->next;
+    }    
+    
+    return itr;
+}
+
+string pop_by_node(taskList* this, node* popped) {
+    if (this->head == popped) { // erase beginning
+        return pop_front(this);
+    } if (this->end == popped) { // erase end
+        return pop_back(this);
+    }
+    string val = popped->str;
+    
+    popped->prev->next = popped->next;
+    popped->next->prev = popped->prev;
+
+    free(popped);
+    this->length--;
+
+    return val;
 }

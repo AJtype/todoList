@@ -6,7 +6,6 @@ void check_operatorEqual();
 
 // getter setter tests
 void check_print_list();
-void check_clear();
 void check_erase();
 void check_unique();
 void check_swap();
@@ -17,7 +16,9 @@ void check_merge();
 
 
 int main() {
-    check_print_list();
+    // check_print_list();
+
+    check_erase();
 
     return 0;
 }
@@ -45,6 +46,60 @@ void check_print_list() {
 
     printf("list after pop again = ");
     print_list(&list);
+}
+
+void check_erase() {
+    taskList list = empty_list();
+    
+    printf("\n---testing erase func---\n");
+
+    push_back(&list, "1");
+    push_back(&list, "2");
+    push_back(&list, "3");
+    push_back(&list, "4");
+    push_back(&list, "5");
+    push_back(&list, "6");
+    push_back(&list, "7");
+    push_back(&list, "8");
+    push_back(&list, "9");
+    push_back(&list, "10");
+    push_back(&list, "11");
+
+    printf("len = %d\t", list.length);
+    printf("pre-erase list = ");
+    print_list(&list);
+    
+    printf("len = %d\t", list.length);
+    printf("post-erase front list = ");
+    erase(&list, 0);
+    print_list(&list);
+
+    printf("len = %d\t", list.length);
+    printf("post-erase front again list = ");
+    erase(&list, 0);
+    print_list(&list);
+    
+    printf("len = %d\t", list.length);
+    printf("post-erase second list = ");
+    erase(&list, 1);
+    print_list(&list);
+
+    printf("len = %d\t", list.length);
+    printf("post-erase before last list = ");
+    erase(&list, 6);
+    print_list(&list);
+
+    printf("len = %d\t", list.length);
+    printf("post-erase last list = ");
+    erase(&list, 6);
+    print_list(&list);
+
+    printf("len = %d\t", list.length);
+    printf("post-erase last list = ");
+    erase(&list, 6);
+    print_list(&list);
+
+    printf("\n---end of erase test---\n");
 }
 
 /*void check_copyConstructor() {
@@ -157,56 +212,6 @@ void check_unique() {
     print_list(l);
 
     std::cout << "---end of unique test---\n" << std::endl;
-}
-
-void check_erase() {
-    list<int> l;
-    
-    std::cout << "\n---testing erase func---" << std::endl;
-
-    l.emplace_back(1);
-    l.emplace_back(2);
-    l.emplace_back(3);
-    l.emplace_back(4);
-    l.emplace_back(5);
-    l.emplace_back(6);
-    l.emplace_back(7);
-    l.emplace_back(8);
-    l.emplace_back(9);
-    l.emplace_back(10);
-    l.emplace_back(11);
-
-    std::cout << "len = " << l.size() << "\t";
-    std::cout << "pre-erase list = ";
-    print_list(l);
-    
-    std::cout << "len = " << l.size() << "\t";
-    std::cout << "post-erase front list = ";
-    l.erase(0);
-    print_list(l);
-
-    std::cout << "len = " << l.size() << "\t";
-    std::cout << "post-erase front again list = ";
-    l.erase(0);
-    print_list(l);
-
-    
-    std::cout << "len = " << l.size() << "\t";
-    std::cout << "post-erase second list = ";
-    l.erase(1);
-    print_list(l);
-
-    std::cout << "len = " << l.size() << "\t";
-    std::cout << "post-erase before last list = ";
-    l.erase(6);
-    print_list(l);
-
-    std::cout << "len = " << l.size() << "\t";
-    std::cout << "post-erase last list = ";
-    l.erase(6); // problem here
-    print_list(l);
-
-    std::cout << "---end of erase test---\n" << std::endl;
 }
 
 void check_swap() {
