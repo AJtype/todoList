@@ -100,8 +100,7 @@ void push_back(taskList *this, const char *str) {
     } this->length++;    
 }
 
-string erase(taskList *this, size_t pos)
-{
+string erase(taskList *this, size_t pos) {
     node* popped = getNode(this, pos);
     if (!popped)
         return createString("-1");
@@ -109,8 +108,7 @@ string erase(taskList *this, size_t pos)
     return pop_by_node(this, popped);
 }
 
-void clear(taskList *this)
-{
+void clear(taskList *this) {
     while (0 != this->head) {
         string popped = pop_front(this);
         // if (0 != strcmp(popped.str, "-1")) // to test list pointer validity

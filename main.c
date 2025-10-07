@@ -1,30 +1,33 @@
 #include "fileManager/fileManager.h"
 
-void printMenu(taskList* tasks, taskList* done);
+void mainLoop(taskList* tasks, taskList* done);
+void printMenu();
 
 int main() {
     taskList tasks = empty_list();
     taskList done = empty_list();
-    printMenu(&tasks, &done);
+
+    // TODO: read from files
+
+    mainLoop(&tasks, &done);
+
+    clear(&tasks);
+    clear(&done);
 }
 
-void printMenu(taskList* tasks, taskList* done) {
+void mainLoop(taskList* tasks, taskList* done) {
     printf("Welcome to your todo list manager\n");
-    size_t choice = 0;
+    size_t choice = -1;
     char taskName[50];
-    while (choice != 6) {
-        printf("Please choose one of the following options to continue\n");
-        printf("1. Print tasks\n");
-        printf("2. Add task\n");
-        printf("3. Mark task as done\n");
-        printf("4. Remove task\n");
-        printf("5. Print done tasks\n");
-        printf("6. Exit\n");
+    while (choice != 0) {
+        printMenu();
 
         scanf(" %d", &choice);
         while (getchar() != '\n'); // clear leftover '\n'
 
         switch (choice) {
+        case 0:
+            break;
         case 1:
             print_list(tasks);
             break;
@@ -38,8 +41,6 @@ void printMenu(taskList* tasks, taskList* done) {
 
             push_back(tasks, taskName);
             break;
-        case 6:
-            break;
         default:
             printf("Invalid input, please try again\n");
             break;
@@ -47,4 +48,14 @@ void printMenu(taskList* tasks, taskList* done) {
         printf("\n");
     }
     printf("Goodbye");
+}
+
+void printMenu() {
+    printf("Please choose one of the following options to continue\n");
+    printf("1. Print tasks\n");
+    printf("2. Add task\n");
+    printf("3. Mark task as done\n");
+    printf("4. Remove task\n");
+    printf("5. Print done tasks\n");
+    printf("0. Exit\n");
 }
