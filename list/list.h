@@ -34,4 +34,7 @@ string pop_front(taskList* this);
 void push_front(taskList* this, const char* str);
 void push_back(taskList* this, const char* str);
 
+// funcs
+void clear(taskList* this);
+
 #endif

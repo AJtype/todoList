@@ -29,21 +29,22 @@ void check_print_list() {
     push_back(&list, "breakfast");
     push_front(&list, "ride");
 
+    printf("print list = ");
     print_list(&list);
 
-    while (0 != list.head) {
-        string popped = pop_front(&list);
-        if (0 != strcmp(popped.str, "-1")) {
-            printf("deleting the string: \"%s\"\n", popped.str);
-            free(popped.str);
-        }
-    }
+    clear(&list);
+
+    printf("list after clear = ");
+    print_list(&list);
 
     string popped = pop_front(&list);
     if (0 != strcmp(popped.str, "-1")) {
         printf("deleting the string: \"%s\"\n", popped.str);
         free(popped.str);
     }
+
+    printf("list after pop again = ");
+    print_list(&list);
 }
 
 /*void check_copyConstructor() {

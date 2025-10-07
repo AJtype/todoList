@@ -99,3 +99,11 @@ void push_back(taskList *this, const char *str) {
         this->end = this->end->next;
     } this->length++;    
 }
+
+void clear(taskList* this) {
+    while (0 != this->head) {
+        string popped = pop_front(this);
+        // if (0 != strcmp(popped.str, "-1")) // to test list pointer validity
+        //     free(popped.str);
+    }
+}
