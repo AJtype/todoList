@@ -14,6 +14,28 @@ void print_list(const taskList *list) {
     } printf("}\n");    
 }
 
+string pop_front(taskList* this) {
+    if (this->length == 0) {
+        printf("pop_front() called on empty list\n");
+        return createString("-1");
+    }
+
+    node* popped = this->head;
+    string val = popped->str; // does this work?
+
+    this->head = popped->next;
+    if (this->head) {
+        this->head->prev = NULL;
+    } else {
+        this->end = NULL;
+    }
+
+    free(popped);
+    this->length--;
+
+    return val;
+}
+
 void push_front(taskList *this, const char *str) {
     node* prevHead = this->head;
 

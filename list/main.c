@@ -30,6 +30,14 @@ void check_print_list() {
     push_front(&list, "ride");
 
     print_list(&list);
+
+    while (0 != list.head) {
+        string popped = pop_front(&list);
+        if (0 != strcmp(popped.str, "-1")) {
+            printf("deleting the string: \"%s\"\n", popped.str);
+            free(popped.str);
+        }
+    }
 }
 
 /*void check_copyConstructor() {

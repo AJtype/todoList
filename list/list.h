@@ -27,6 +27,7 @@ void erase(taskList* this);
 
 // getters
 void print_list(const taskList* list);
+string pop_front(taskList* this);
 
 // setters
 void push_front(taskList* this, const char* str);
