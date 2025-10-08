@@ -9,6 +9,7 @@ void check_print_list();
 void check_erase();
 void check_unique();
 void check_swap();
+void check_popNode();
 
 // funcs
 void check_sort();
@@ -18,7 +19,9 @@ void check_merge();
 int main() {
     // check_print_list();
 
-    check_erase();
+    // check_erase();
+
+    check_popNode();
 
     return 0;
 }
@@ -100,6 +103,61 @@ void check_erase() {
     print_list(&list);
 
     printf("\n---end of erase test---\n");
+}
+
+void check_popNode() {
+    taskList list = empty_list();
+    node* popped = NULL;
+    
+    printf("\n---testing popNode func---\n\n");
+
+    printf("poping 0 and 1 on an empty list\tlist->len = %d\n", list.length);
+    popNode(&list, 0);
+    popNode(&list, 1);
+
+    printf("\npushing 2 items than popping front of both\n");
+    push_back(&list, "1");
+    push_back(&list, "2");
+
+    popped = popNode(&list, 0);
+    printf("popped string = %s\n", popped->str.str);
+    free(popped); popped = NULL;
+    popped = popNode(&list, 0);
+    printf("popped string = %s\n", popped->str.str);
+    free(popped); popped = NULL;
+
+    printf("\npushing 2 items than popping back of both\n");
+    push_back(&list, "1");
+    push_back(&list, "2");
+
+    popped = popNode(&list, 1);    
+    printf("popped string = %s\n", popped->str.str);
+    free(popped); popped = NULL;
+    popped = popNode(&list, 0);
+    printf("popped string = %s\n", popped->str.str);
+    free(popped); popped = NULL;
+
+    printf("\npushing 3 items than popping middle\n");
+    push_back(&list, "1");
+    push_back(&list, "2");
+    push_back(&list, "3");
+
+    popped = popNode(&list, 1);    
+    printf("popped string = %s\n", popped->str.str);
+    free(popped); popped = NULL;
+
+    printf("list = ");
+    print_list(&list);
+
+    popped = popNode(&list, 1);    
+    printf("popped string = %s\n", popped->str.str);
+    free(popped); popped = NULL;
+    printf("popped back\tlist = ");
+    print_list(&list);
+
+    clear(&list);
+
+    printf("\n---end of popNode test---\n");
 }
 
 /*void check_copyConstructor() {
