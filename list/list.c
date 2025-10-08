@@ -15,30 +15,29 @@ void print_list(const taskList *list) {
 }
 
 string pop_back(taskList* this) {
-    if (this->length == 0) {
+    node* popped = popFront(this);
+
+    if (!popped) {
         printf("pop_front() called on empty list\n");
         return createString("-1");
     }
 
-    node* popped = this->end;
-    string val = popped->str;
-
-    this->end = popped->prev;
-    if(this->end) {
-        this->end->next = NULL;
-    } else {
-        this->head = NULL;
-    }
+    string val = popped->str;    
 
     free(popped);
-    this->length--;
 
     return val;
 }
 
 string pop_front(taskList* this) {
     node* popped = popFront(this);
-    string val = popped->str;
+
+    if (!popped) {
+        printf("pop_front() called on empty list\n");
+        return createString("-1");
+    }
+
+    string val = popped->str;    
 
     free(popped);
 
@@ -108,25 +107,40 @@ node *popNode(taskList *this, size_t pos) {
 }
 
 node* popFront(taskList* this) {
-    if (this->length == 0) {
+    if (this->length == 0)
         return NULL;
-    }
 
     node* popped = this->head;
     string val = popped->str;
 
     this->head = popped->next;
-    if (this->head) {
+    if (this->head)
         this->head->prev = NULL;
-    } else {
+    else
         this->end = NULL;
-    }
     this->length--;
+    popped->next = NULL;
 
     return popped;
 }
 
-node* popBack(taskList* this);
+node* popBack(taskList* this) {
+    if (this->length == 0)
+        return NULL;
+
+    node* popped = this->end;
+    string val = popped->str;
+
+    this->end = popped->prev;
+    if(this->end)
+        this->end->next = NULL;
+    else
+        this->head = NULL;
+    this->length--;
+    popped->prev = NULL;
+
+    return popped;
+}
 
 node *getNode(taskList *this, size_t pos)
 {
