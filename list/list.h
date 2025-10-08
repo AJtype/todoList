@@ -28,6 +28,7 @@ taskList copyList(const taskList* other);
 void print_list(const taskList* list);
 string pop_back(taskList* this);
 string pop_front(taskList* this);
+node* popNode(taskList* this, size_t pos); // pop node from list and return it to main
 
 // setters
 void push_front(taskList* this, const char* str);
@@ -38,6 +39,8 @@ string erase(taskList* this, size_t pos);
 void clear(taskList* this);
 
 // helper funcs
+node* popFront(taskList* this);
+node* popBack(taskList* this);
 node* getNode(taskList* this, size_t pos);
 string pop_by_node(taskList* this, node* popped);
 

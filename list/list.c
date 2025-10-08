@@ -37,23 +37,10 @@ string pop_back(taskList* this) {
 }
 
 string pop_front(taskList* this) {
-    if (this->length == 0) {
-        printf("pop_front() called on empty list\n");
-        return createString("-1");
-    }
-
-    node* popped = this->head;
+    node* popped = popFront(this);
     string val = popped->str;
 
-    this->head = popped->next;
-    if (this->head) {
-        this->head->prev = NULL;
-    } else {
-        this->end = NULL;
-    }
-
     free(popped);
-    this->length--;
 
     return val;
 }
@@ -116,7 +103,33 @@ void clear(taskList *this) {
     }
 }
 
-node *getNode(taskList *this, size_t pos) {
+node *popNode(taskList *this, size_t pos) {
+    return NULL; // TODO
+}
+
+node* popFront(taskList* this) {
+    if (this->length == 0) {
+        return NULL;
+    }
+
+    node* popped = this->head;
+    string val = popped->str;
+
+    this->head = popped->next;
+    if (this->head) {
+        this->head->prev = NULL;
+    } else {
+        this->end = NULL;
+    }
+    this->length--;
+
+    return popped;
+}
+
+node* popBack(taskList* this);
+
+node *getNode(taskList *this, size_t pos)
+{
     if (pos >= this->length) {
         printf("Out of Bounds in func getNode\n");
         return NULL;

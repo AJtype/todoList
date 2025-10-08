@@ -26,12 +26,12 @@ void mainLoop(taskList* tasks, taskList* done) {
         while (getchar() != '\n'); // clear leftover '\n'
 
         switch (choice) {
-        case 0:
+        case 0: // Exit
             break;
-        case 1:
+        case 1: // Print Tasks
             print_list(tasks);
             break;
-        case 2:
+        case 2: // Add Task
             printf("Name the task: ");
 
             scanf(" %s", &taskName);
