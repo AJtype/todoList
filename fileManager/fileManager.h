@@ -1,7 +1,6 @@
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 
-#include "../list/list.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,12 +1,12 @@
 #include "list.h"
 
 taskList empty_list() {
-    taskList list = {0, 0, 0};
+    taskList list = {0, NULL, NULL};
     return list;
 }
 
-void print_list(const taskList *list) {
-    node* itr = list->head;
+void print_list(const taskList *this) {
+    node* itr = this->head;
     printf("{");
     while (itr != 0) {
         printf("%s, ", itr->str.str);
@@ -44,12 +44,37 @@ string pop_front(taskList* this) {
     return val;
 }
 
+node *popNode(taskList *this, size_t pos) {
+    if (!this->length) {
+        printf("Called pop on empty list\n");
+        return NULL;
+    }
+    
+    if (0 == pos) {
+        return popFront(this); 
+    } if (this->length-1 == pos) {
+        printf("popping back\n");
+        return popBack(this);
+    }
+
+    node* popped = getNode(this, pos);    
+    
+    popped->prev->next = popped->next;
+    popped->next->prev = popped->prev;
+    this->length--;
+
+    popped->next = NULL;
+    popped->prev = NULL;
+
+    return popped;
+}
+
 void push_front(taskList *this, const char *str) {
     node* prevHead = this->head;
 
     // add a new node at the beginning of the list
     this->head = (node*)malloc(sizeof(node));
-    if (NULL == this->head) {
+    if (NULL == this->head) { // TODO: change to return
         perror("Memory allocation failed in function push_front");
         exit(EXIT_FAILURE);
     }
@@ -96,35 +121,10 @@ string erase(taskList *this, size_t pos) {
 
 void clear(taskList *this) {
     while (0 != this->head) {
-        string popped = pop_front(this);
+        pop_front(this);
         // if (0 != strcmp(popped.str, "-1")) // to test list pointer validity
-        //     free(popped.str);
+        //     free(popped.str.str);
     }
-}
-
-node *popNode(taskList *this, size_t pos) {
-    if (!this->length) {
-        printf("Called pop on empty list\n");
-        return NULL;
-    }
-    
-    if (0 == pos) {
-        return popFront(this); 
-    } if (this->length-1 == pos) {
-        printf("popping back\n");
-        return popBack(this);
-    }
-
-    node* popped = getNode(this, pos);    
-    
-    popped->prev->next = popped->next;
-    popped->next->prev = popped->prev;
-    this->length--;
-
-    popped->next = NULL;
-    popped->prev = NULL;
-
-    return popped;
 }
 
 node* popFront(taskList* this) {

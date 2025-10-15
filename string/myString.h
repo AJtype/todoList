@@ -9,6 +9,7 @@ void dropEOL(char* line);
 
 typedef struct string string;
 
+// mem = 12
 typedef struct string {
     unsigned int arrSize;
     unsigned int stringLen;

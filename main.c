@@ -1,4 +1,6 @@
 #include "fileManager/fileManager.h"
+#include "list/list.h"
+#include "string/myString.h"
 
 void mainLoop(taskList* tasks, taskList* done);
 void printMenu();
