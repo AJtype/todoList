@@ -24,7 +24,7 @@ string pop_back(taskList* this) {
 
     string val = popped->str;    
 
-    free(popped);
+    deleteNode(popped);
 
     return val;
 }
@@ -39,7 +39,7 @@ string pop_front(taskList* this) {
 
     string val = popped->str;    
 
-    free(popped);
+    deleteNode(popped);
 
     return val;
 }
@@ -122,8 +122,6 @@ string erase(taskList *this, size_t pos) {
 void clear(taskList *this) {
     while (0 != this->head) {
         pop_front(this);
-        // if (0 != strcmp(popped.str, "-1")) // to test list pointer validity
-        //     free(popped.str.str);
     }
 }
 
@@ -188,8 +186,13 @@ string pop_by_node(taskList* this, node* popped) {
     popped->prev->next = popped->next;
     popped->next->prev = popped->prev;
 
-    free(popped);
+    deleteNode(popped);
     this->length--;
 
     return val;
+}
+
+void deleteNode(node *n) {
+    deleteString(&n->str);
+    free(n);
 }

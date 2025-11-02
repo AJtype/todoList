@@ -20,6 +20,7 @@ typedef struct string {
 string empty_string();
 string copyString(const string* other);
 string createString(const char* other);
+void deleteString(string* s);
 
 // setters
 void appendChars(string* this, const char* str);

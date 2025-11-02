@@ -6,5 +6,8 @@ int main() {
 
     printf("%s", copy.str);
 
+    deleteString(&str);
+    deleteString(&copy);
+
     return 0;
 }

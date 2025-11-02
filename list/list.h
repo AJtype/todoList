@@ -91,12 +91,10 @@ void push_back(taskList* this, const char* str);
  */
 string erase(taskList* this, size_t pos);
 
-/** pop and delete a node of specific position
+/** remove all nodes from the list
  * @param this: the list
- * @param pos: the position of the node that needs to be popped
- * @return: the string the node held
  * #efficiency: On (always)
- * #memory: 48
+ * #memory: 12 bytes
  */
 void clear(taskList* this);
 
@@ -105,5 +103,6 @@ node* popFront(taskList* this);
 node* popBack(taskList* this);
 node* getNode(taskList* this, size_t pos);
 string pop_by_node(taskList* this, node* popped);
+void deleteNode(node* n);
 
 #endif

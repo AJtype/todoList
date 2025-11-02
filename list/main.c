@@ -17,9 +17,9 @@ void check_merge();
 
 
 int main() {
-    // check_print_list();
+    check_print_list();
 
-    // check_erase();
+    check_erase();
 
     check_popNode();
 
@@ -49,6 +49,8 @@ void check_print_list() {
 
     printf("list after pop again = ");
     print_list(&list);
+
+    clear(&list);
 }
 
 void check_erase() {
@@ -101,6 +103,8 @@ void check_erase() {
     printf("post-erase last list = ");
     erase(&list, 6);
     print_list(&list);
+
+    clear(&list);
 
     printf("\n---end of erase test---\n");
 }

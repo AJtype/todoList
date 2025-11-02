@@ -21,7 +21,7 @@ void mainLoop(taskList* tasks, taskList* done) {
     printf("Welcome to your todo list manager\n");
     size_t choice = -1;
     char taskName[50];
-    while (choice != 0) {
+    while (choice != 0) { // TODO: add choose which list
         printMenu();
 
         scanf(" %d", &choice);
@@ -56,8 +56,9 @@ void printMenu() {
     printf("Please choose one of the following options to continue\n");
     printf("1. Print tasks\n");
     printf("2. Add task\n");
-    printf("3. Mark task as done\n");
-    printf("4. Remove task\n");
-    printf("5. Print done tasks\n");
+    printf("3. Move Task\n");
+    printf("4. Mark task as done\n");
+    printf("5. Remove task\n");
+    printf("6. Print done tasks\n");
     printf("0. Exit\n");
 }

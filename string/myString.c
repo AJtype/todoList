@@ -37,3 +37,7 @@ string createString(const char *other) {
 
     return this;
 }
+
+void deleteString(string *s) {
+    free(s->str);
+}
