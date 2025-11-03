@@ -5,7 +5,7 @@
 
 #define LIST_AMOUNT 5
 
-void editListLoop(taskList* tasks);
+void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index);
 void printMenu();
 void printSelectListMenu(pairSToL pairs[LIST_AMOUNT]);
 
@@ -26,7 +26,7 @@ int main() {
         if (choice <= 0 || choice > LIST_AMOUNT) {
             continue;
         } 
-        editListLoop(&pairs[choice - 1].second);
+        editListLoop(pairs, choice - 1);
     }
     printf("Goodbye");
 
@@ -35,7 +35,7 @@ int main() {
     }
 }
 
-void editListLoop(taskList* tasks) {
+void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
     printf("Welcome to your todo list manager\n");
     size_t choice = -1;
     char taskName[50];
@@ -49,7 +49,7 @@ void editListLoop(taskList* tasks) {
         case 0: // Exit
             break;
         case 1: // Print Tasks
-            print_list(tasks);
+            print_list(&pairs[index].second);
             break;
         case 2: // Add Task
             printf("Name the task: ");
@@ -57,9 +57,9 @@ void editListLoop(taskList* tasks) {
             scanf(" %s", &taskName);
             while (getchar() != '\n'); // clear leftover '\n'
 
-            printf("The task %s has been added\n");
+            push_back(&pairs[index].second, taskName);
 
-            push_back(tasks, taskName);
+            printf("The task %s has been added\n");
             break;
         default:
             printf("Invalid input, please try again\n");
