@@ -80,6 +80,8 @@ void push_front(taskList* this, const char* str);
  */
 void push_back(taskList* this, const char* str);
 
+void pushNodeBack(taskList* this, node* n);
+
 // funcs
 
 /** pop and delete a node of specific position

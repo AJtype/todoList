@@ -1,4 +1,6 @@
 #include "list.h"
+#include <assert.h>
+#include <string.h>
 
 // constructor tests
 void check_copyConstructor();
@@ -15,6 +17,12 @@ void check_popNode();
 void check_sort();
 void check_merge();
 
+void test_pushNodeBack_into_empty_list();
+
+void test_pushNodeBack_into_nonempty_list();
+
+void test_pushNodeBack_multiple_appends();
+
 
 int main() {
     check_print_list();
@@ -23,6 +31,11 @@ int main() {
 
     check_popNode();
 
+    test_pushNodeBack_into_empty_list();
+    test_pushNodeBack_into_nonempty_list();
+    test_pushNodeBack_multiple_appends();
+
+    printf("All pushNodeBack list tests passed!\n");
     return 0;
 }
 
@@ -162,6 +175,92 @@ void check_popNode() {
     clear(&list);
 
     printf("\n---end of popNode test---\n");
+}
+
+void test_pushNodeBack_into_empty_list() {
+    taskList list = empty_list();
+    node *n1 = (node *)malloc(sizeof(node));
+    n1->str = createString("alpha");
+
+    pushNodeBack(&list, n1);
+
+    assert(list.length == 1);
+    assert(list.head == n1);
+    assert(list.end == n1);
+    assert(n1->prev == NULL);
+    assert(n1->next == NULL);
+    assert(strcmp(list.head->str.str, "alpha") == 0);
+
+    printf("test_pushNodeBack_into_empty_list passed.\n");
+    clear(&list);
+}
+
+void test_pushNodeBack_into_nonempty_list() {
+    taskList list = empty_list();
+    node *n1 = (node *)malloc(sizeof(node));
+    n1->str = createString("first");
+    node *n2 = (node *)malloc(sizeof(node));
+    n2->str = createString("second");
+    node *n3 = (node *)malloc(sizeof(node));
+    n3->str = createString("third");
+
+    pushNodeBack(&list, n1);
+    pushNodeBack(&list, n2);
+    pushNodeBack(&list, n3);
+
+    assert(list.length == 3);
+    assert(list.head == n1);
+    assert(list.end == n3);
+
+    // forward links
+    assert(n1->next == n2);
+    assert(n2->next == n3);
+    assert(n3->next == NULL);
+
+    // backward links
+    assert(n3->prev == n2);
+    assert(n2->prev == n1);
+    assert(n1->prev == NULL);
+
+    // string content
+    assert(strcmp(n1->str.str, "first") == 0);
+    assert(strcmp(n2->str.str, "second") == 0);
+    assert(strcmp(n3->str.str, "third") == 0);
+
+    printf("test_pushNodeBack_into_nonempty_list passed.\n");
+    clear(&list);
+}
+
+void test_pushNodeBack_multiple_appends() {
+    taskList list = empty_list();
+    const char *values[] = {"A", "B", "C", "D", "E"};
+    int num = sizeof(values) / sizeof(values[0]);
+
+    for (int i = 0; i < num; ++i) {
+        node *newNode = (node *)malloc(sizeof(node));
+        newNode->str = createString(values[i]);
+        newNode->next = NULL;
+        newNode->prev = NULL;
+        pushNodeBack(&list, newNode);
+    }
+
+    assert(list.length == (size_t)num);
+    assert(strcmp(list.head->str.str, "A") == 0);
+    assert(strcmp(list.end->str.str, "E") == 0);
+
+    // validate chain integrity
+    node *curr = list.head;
+    int count = 0;
+    while (curr) {
+        if (curr->next)
+            assert(curr->next->prev == curr);
+        curr = curr->next;
+        count++;
+    }
+    assert(count == num);
+
+    printf("test_pushNodeBack_multiple_appends passed.\n");
+    clear(&list);
 }
 
 /*void check_copyConstructor() {

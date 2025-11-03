@@ -111,6 +111,20 @@ void push_back(taskList *this, const char *str) {
     } this->length++;    
 }
 
+void pushNodeBack(taskList *this, node *n) {
+    n->next = NULL;
+
+    if (0 == this->length) { // empty list
+        this->head = n;
+        n->prev = NULL;
+        this->end = this->head;
+    } else {
+        n->prev = this->end;
+        this->end->next = n;
+        this->end = n;
+    } this->length++;
+}
+
 string erase(taskList *this, size_t pos) {
     node* popped = getNode(this, pos);
     if (!popped)
