@@ -19,6 +19,7 @@ int main() {
     size_t choice = -1;
     while (choice != 0) {
         printSelectListMenu(pairs);
+        printf("0. Exit\n");
         
         scanf(" %d", &choice);
         while (getchar() != '\n'); // clear leftover '\n'
@@ -61,6 +62,22 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
 
             printf("The task %s has been added\n");
             break;
+        case 3: // Move Task
+            print_list(&pairs[index].second);
+
+            size_t chosenList = -1;
+            while (chosenList > LIST_AMOUNT || chosenList == 0) {
+                scanf(" %d", &chosenList);
+                while (getchar() != '\n'); // clear leftover '\n'
+            }
+
+            node* movedNode = popNode(&pairs[index].second, chosenList - 1);
+
+            // push_back(&pairs[chosenList - 1].second, movedNode->str.str); // TODO: replace with pushNode
+            free(movedNode);
+            printf("The task has been moved\n");
+
+            break;
         default:
             printf("Invalid input, please try again\n");
             break;
@@ -73,7 +90,7 @@ void printSelectListMenu(pairSToL pairs[LIST_AMOUNT]) {
     printf("Please choose one of the following lists:\n");
     for (size_t i = 0; i < 5; i++) {
         printf("%zu. %s\n", i + 1, pairs[i].first.str);
-    } printf("0. Exit\n");
+    }
 }
 
 void printMenu() {
