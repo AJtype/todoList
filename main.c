@@ -63,8 +63,7 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             printf("The task %s has been added\n");
             break;
         case 3: // Move Task
-            printf("Current tasks in list %s:\n", pairs[index].first.str, 
-                pairs[index].second.length);
+            printf("Current tasks in list %s:\n", pairs[index].first.str);
             print_list(&pairs[index].second);
 
             if (0 == pairs[index].second.length) {
@@ -73,13 +72,15 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             }
             
 
-            printf("Select the task position to move: ");
-            size_t chosenTask = -1;
-            while (chosenTask > pairs[index].second.length || chosenTask == 0) {            
-                scanf(" %d", &chosenTask);
+            printf("Select the task position to remove.\n");
+            size_t movedTask = -1;
+            while (movedTask > pairs[index].second.length || movedTask == 0) {
+                printf("Please enter a valid task position (1 to %d): ", 
+                    pairs[index].second.length);
+                scanf(" %d", &movedTask);
                 while (getchar() != '\n'); // clear leftover '\n'
             }
-            node* movedNode = popNode(&pairs[index].second, chosenTask - 1);
+            node* movedNode = popNode(&pairs[index].second, movedTask - 1);
 
             printf("Select the list to move the task to:\n");
             printSelectListMenu(pairs);
@@ -93,6 +94,30 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             printf("The task %s has been moved from list %s to list %s.\n", 
                 movedNode->str.str, pairs[index].first.str, 
                 pairs[chosenList - 1].first.str);
+
+            break;
+        case 4: // Remove Task
+            printf("Current tasks in list %s:\n", pairs[index].first.str);
+            print_list(&pairs[index].second);
+
+            if (0 == pairs[index].second.length) {
+                printf("No tasks to remove\n");
+                break;
+            }
+
+            printf("Select the task position to remove.\n");
+            size_t removedTask = -1;
+            while (removedTask > pairs[index].second.length || removedTask == 0) {
+                printf("Please enter a valid task position (1 to %d): ", 
+                    pairs[index].second.length);
+                scanf(" %d", &removedTask);
+                while (getchar() != '\n'); // clear leftover '\n'
+            }
+
+            string removedStr = erase(&pairs[index].second, removedTask - 1);
+            printf("The task %s has been removed from the list %s.\n", 
+                removedStr.str, pairs[index].first.str);
+            deleteString(&removedStr);
 
             break;
         default:
@@ -115,8 +140,7 @@ void printMenu() {
     printf("1. Print tasks\n");
     printf("2. Add task\n");
     printf("3. Move Task\n");
-    printf("4. Mark task as done\n");
-    printf("5. Remove task\n");
-    printf("6. Print done tasks\n");
+    printf("4. Remove task\n");
+    printf("5. Clear all tasks\n");
     printf("0. Choose a different list\n");
 }
