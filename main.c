@@ -63,19 +63,36 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             printf("The task %s has been added\n");
             break;
         case 3: // Move Task
+            printf("Current tasks in list %s:\n", pairs[index].first.str, 
+                pairs[index].second.length);
             print_list(&pairs[index].second);
 
+            if (0 == pairs[index].second.length) {
+                printf("No tasks to move\n");
+                break;
+            }
+            
+
+            printf("Select the task position to move: ");
+            size_t chosenTask = -1;
+            while (chosenTask > pairs[index].second.length || chosenTask == 0) {            
+                scanf(" %d", &chosenTask);
+                while (getchar() != '\n'); // clear leftover '\n'
+            }
+            node* movedNode = popNode(&pairs[index].second, chosenTask - 1);
+
+            printf("Select the list to move the task to:\n");
+            printSelectListMenu(pairs);
             size_t chosenList = -1;
             while (chosenList > LIST_AMOUNT || chosenList == 0) {
                 scanf(" %d", &chosenList);
                 while (getchar() != '\n'); // clear leftover '\n'
             }
 
-            node* movedNode = popNode(&pairs[index].second, chosenList - 1);
-
-            // push_back(&pairs[chosenList - 1].second, movedNode->str.str); // TODO: replace with pushNode
-            free(movedNode);
-            printf("The task has been moved\n");
+            pushNodeBack(&pairs[chosenList - 1].second, movedNode);
+            printf("The task %s has been moved from list %s to list %s.\n", 
+                movedNode->str.str, pairs[index].first.str, 
+                pairs[chosenList - 1].first.str);
 
             break;
         default:
