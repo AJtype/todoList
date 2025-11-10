@@ -1,4 +1,3 @@
-#include "fileManager/fileManager.h"
 #include "list/list.h"
 #include "string/myString.h"
 #include "pair/pairStringToList.h"
@@ -8,6 +7,7 @@
 void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index);
 void printMenu();
 void printSelectListMenu(pairSToL pairs[LIST_AMOUNT]);
+int writeListToFile(const taskList* this, const char* fileName);
 
 int main() {
     pairSToL pairs[5] = {createPair("Work"), 
@@ -120,16 +120,18 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             deleteString(&removedStr);
 
             break;
-        case 5: // Write to File
+        case 5: { // Write to File
             string fileName = copyString(&pairs[index].first);
             appendChars(&fileName, ".txt");
 
-            writeListToFile(&pairs[index].second, fileName.str); // TODO: add func writeListToFile
+            writeListToFile(&pairs[index].second, fileName.str);
+
             printf("The list %s has been written to file %s.\n", 
                 pairs[index].first.str, fileName.str);
+
             deleteString(&fileName);
             break;
-        default:
+        } default:
             printf("Invalid input, please try again\n");
             break;
         }
@@ -142,6 +144,25 @@ void printSelectListMenu(pairSToL pairs[LIST_AMOUNT]) {
     for (size_t i = 0; i < 5; i++) {
         printf("%zu. %s\n", i + 1, pairs[i].first.str);
     }
+}
+
+int writeListToFile(const taskList *this, const char *fileName) {
+    // Open the file for writing
+    FILE *file = fopen(fileName, "w");
+    if (file == NULL) {
+        printf("Error opening file %s for writing.\n", fileName);
+        return -1;
+    }
+
+    // Write each task to the file
+    node* current = this->head;
+    while (current != NULL) {
+        fprintf(file, "%s\n", current->str.str);
+        current = current->next;
+    }
+
+    fclose(file);
+    return 0;
 }
 
 void printMenu() {
