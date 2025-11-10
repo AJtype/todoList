@@ -124,7 +124,12 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             string fileName = copyString(&pairs[index].first);
             appendChars(&fileName, ".txt");
 
-            writeListToFile(&pairs[index].second, fileName.str);
+            if (0 != writeListToFile(&pairs[index].second, fileName.str)){
+                printf("Error writing list %s to file %s.\n", 
+                    pairs[index].first.str, fileName.str);
+                deleteString(&fileName);
+                break;
+            }
 
             printf("The list %s has been written to file %s.\n", 
                 pairs[index].first.str, fileName.str);
