@@ -3,6 +3,7 @@
 int main() {
     string str = createString("Hello");
     string copy = copyString(&str);
+    appendChars(&copy, " World!");
 
     printf("%s", copy.str);
 

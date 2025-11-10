@@ -41,3 +41,15 @@ string createString(const char *other) {
 void deleteString(string *s) {
     free(s->str);
 }
+
+void appendChars(string *this, const char *str) {
+    unsigned int strLen = strlen(str);
+
+    if (this->stringLen + strLen + 1 > this->arrSize) {
+        this->arrSize = this->stringLen + strLen + 1;
+        this->str = (char*)realloc(this->str, this->arrSize * sizeof(char));
+    }
+
+    strcat(this->str, str);
+    this->stringLen += strLen;
+}

@@ -120,6 +120,15 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             deleteString(&removedStr);
 
             break;
+        case 5: // Write to File
+            string fileName = copyString(&pairs[index].first);
+            appendChars(&fileName, ".txt");
+
+            writeListToFile(&pairs[index].second, fileName.str); // TODO: add func writeListToFile
+            printf("The list %s has been written to file %s.\n", 
+                pairs[index].first.str, fileName.str);
+            deleteString(&fileName);
+            break;
         default:
             printf("Invalid input, please try again\n");
             break;
@@ -141,6 +150,6 @@ void printMenu() {
     printf("2. Add task\n");
     printf("3. Move Task\n");
     printf("4. Remove task\n");
-    printf("5. Clear all tasks\n");
+    printf("5. Write to File\n");
     printf("0. Choose a different list\n");
 }

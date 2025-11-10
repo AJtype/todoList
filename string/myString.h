@@ -24,6 +24,6 @@ void deleteString(string* s);
 
 // setters
 void appendChars(string* this, const char* str);
-void appendStrings(string* this, string* other);
+void appendStrings(string* this, const string other);
 
 #endif
