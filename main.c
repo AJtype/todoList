@@ -131,7 +131,10 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
 
             deleteString(&fileName);
             break;
-        } default:
+        } case 6: // Read from File
+            printf("Feature not implemented yet.\n");
+            break;
+        default:
             printf("Invalid input, please try again\n");
             break;
         }
@@ -172,5 +175,6 @@ void printMenu() {
     printf("3. Move Task\n");
     printf("4. Remove task\n");
     printf("5. Write to File\n");
+    printf("6. Read from File (Not implemented)\n");
     printf("0. Choose a different list\n");
 }
