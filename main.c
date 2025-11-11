@@ -2,19 +2,35 @@
 #include "string/myString.h"
 #include "pair/pairStringToList.h"
 
-#define LIST_AMOUNT 5
+#define LISTS_AMOUNT 5
 
-void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index);
+void editListLoop(pairSToL pairs[LISTS_AMOUNT], size_t index);
 void printMenu();
-void printSelectListMenu(pairSToL pairs[LIST_AMOUNT]);
+void printSelectListMenu(pairSToL pairs[LISTS_AMOUNT]);
 int writeListToFile(const taskList* this, const char* fileName);
+int readListFromFile(taskList* this, const char* fileName);
 
 int main() {
-    pairSToL pairs[5] = {createPair("Work"), 
+    pairSToL pairs[LISTS_AMOUNT] = {createPair("Work"), 
         createPair("Personal"), createPair("Shopping"),
         createPair("Chores"), createPair("Done")};
 
-    // TODO: read from files
+    // Read lists from files
+    for (size_t i = 0; i < LISTS_AMOUNT; i++) {
+        // Create file name
+        string fileName = copyString(&pairs[i].first);
+        appendChars(&fileName, ".txt");
+
+        // Read from file
+        if (0 != readListFromFile(&pairs[i].second, fileName.str)){
+            printf("Error reading list %s from file %s.\n", 
+                pairs[i].first.str, fileName.str);
+            deleteString(&fileName);
+            continue;
+        }
+
+        deleteString(&fileName);
+    }
 
     size_t choice = -1;
     while (choice != 0) {
@@ -24,7 +40,7 @@ int main() {
         scanf(" %d", &choice);
         while (getchar() != '\n'); // clear leftover '\n'
 
-        if (choice <= 0 || choice > LIST_AMOUNT) {
+        if (choice <= 0 || choice > LISTS_AMOUNT) {
             continue;
         } 
         editListLoop(pairs, choice - 1);
@@ -36,7 +52,7 @@ int main() {
     }
 }
 
-void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
+void editListLoop(pairSToL pairs[LISTS_AMOUNT], size_t index) {
     printf("Welcome to your todo list manager\n");
     size_t choice = -1;
     char taskName[50];
@@ -85,7 +101,7 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             printf("Select the list to move the task to:\n");
             printSelectListMenu(pairs);
             size_t chosenList = -1;
-            while (chosenList > LIST_AMOUNT || chosenList == 0) {
+            while (chosenList > LISTS_AMOUNT || chosenList == 0) {
                 scanf(" %d", &chosenList);
                 while (getchar() != '\n'); // clear leftover '\n'
             }
@@ -118,12 +134,13 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
             printf("The task %s has been removed from the list %s.\n", 
                 removedStr.str, pairs[index].first.str);
             deleteString(&removedStr);
-
             break;
         case 5: { // Write to File
+            // Create file name
             string fileName = copyString(&pairs[index].first);
             appendChars(&fileName, ".txt");
 
+            // Write to file
             if (0 != writeListToFile(&pairs[index].second, fileName.str)){
                 printf("Error writing list %s to file %s.\n", 
                     pairs[index].first.str, fileName.str);
@@ -133,13 +150,9 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
 
             printf("The list %s has been written to file %s.\n", 
                 pairs[index].first.str, fileName.str);
-
             deleteString(&fileName);
             break;
-        } case 6: // Read from File
-            printf("Feature not implemented yet.\n");
-            break;
-        default:
+        } default:
             printf("Invalid input, please try again\n");
             break;
         }
@@ -147,7 +160,7 @@ void editListLoop(pairSToL pairs[LIST_AMOUNT], size_t index) {
     }
 }
 
-void printSelectListMenu(pairSToL pairs[LIST_AMOUNT]) {
+void printSelectListMenu(pairSToL pairs[LISTS_AMOUNT]) {
     printf("Please choose one of the following lists:\n");
     for (size_t i = 0; i < 5; i++) {
         printf("%zu. %s\n", i + 1, pairs[i].first.str);
@@ -173,6 +186,25 @@ int writeListToFile(const taskList *this, const char *fileName) {
     return 0;
 }
 
+int readListFromFile(taskList *this, const char *fileName) {
+    // Open the file for reading
+    FILE *file = fopen(fileName, "r");
+    if (file == NULL) {
+        printf("Error opening file %s for reading.\n", fileName);
+        return -1;
+    }
+
+    // Read each line from the file and add it to the list
+    char buffer[256];
+    while (fgets(buffer, sizeof(buffer), file)) {
+        dropEOL(buffer); // Remove newline character
+        push_back(this, buffer);
+    }
+    
+    fclose(file);
+    return 0;
+}
+
 void printMenu() {
     printf("Please choose one of the following options to continue\n");
     printf("1. Print tasks\n");
@@ -180,6 +212,5 @@ void printMenu() {
     printf("3. Move Task\n");
     printf("4. Remove task\n");
     printf("5. Write to File\n");
-    printf("6. Read from File (Not implemented)\n");
     printf("0. Choose a different list\n");
 }
